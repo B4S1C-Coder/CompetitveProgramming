@@ -1,0 +1,52 @@
+Rust has mainly two types of data-types:
+1) Scalar
+2) Compound
+
+Scalar types
+------------
+These types represent a single value. Primary scalar types are: integers,floating points, numbers,
+booleans and characters.
+
+Integer types => (signed) i8, i16, i32, i64, i128, isize
+               (unsigned) u8, u16, u32, u64, u128, usize
+
+isize and usize are equivalent to size_t (in C/C++).
+
+You can write integer litreals as:
+98_222 = 98222 (dec), 0xff (hex), 0o77 (oct), 0b1111_0000 (bin), b'X' (byte u8 only)
+
+Floating points are represented accroding to the IEEE-754 Standard, f32 is single precision float
+and f64 is double precision.
+
+Boolean type is represented via bool,
+let is_straight_male: bool = true; // One byte, possible values true and false
+
+String litreals use double quotes "" whereas character litreals use single quotes ''
+let x: char = 'x'; // Each char is 4 bytes
+
+Compound types
+--------------
+Compound types can group multiple values into a single type.
+
+Tuple type: They have a fixed length and cannot grow or shrink once declared.
+let tup: (i32, f64, u8) = (69, 6.9, 1);
+
+elements can be accessed via destructing as:
+
+let (x, y, z) = tup;
+println!("X is {x}");
+
+or can be accessed as:
+
+let some_val = tup.0; // 69
+let some_val = tup.1; // 6.9
+let some_val = tup.2; // 1
+
+The tuple without any values has a special name, unit. This value and its corresponding type are
+both written () and represent an empty value or an empty return type. Expressions implicitly
+return the unit value if they don’t return any other value.
+
+Array Type: unlike tuple every element must have same type:
+let a = [69, 42, 52];
+let b: [i32; 2] = [42, 69];
+let c = [69; 3]; // equivalent to let c = [69, 69, 69]

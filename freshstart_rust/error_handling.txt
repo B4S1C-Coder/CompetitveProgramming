@@ -1,0 +1,10 @@
+Unlike other programming languages Rust does NOT have exceptions. Instead, Rust broadly
+groups errors into two major categories: recoverable and unrecoverable errors.
+
+1) Recoverable errors: such as file not found error, in this case we may have to just
+prompt the user to try again instead of stopping the execution of the program. For
+such errors, Rust has the type Result<T, E>.
+
+2) Unrecoverable errors: such as accessing a memory location, out of bounds of the array
+in this case we'll want to immediately terminate the execution of the program. For such
+errors the macro panic! is used.

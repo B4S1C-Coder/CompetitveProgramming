@@ -1,0 +1,22 @@
+const
+---------------------------------------------------
+When we declare a const, you'll have to specify the data-type and you can NEVER make a const "mut".
+They can be declared in any scope.
+
+const NAUGHTY_NUMBER: u32 = 69;
+---------------------------------------------------
+let
+---------------------------------------------------
+By default variables are immutable and you can make them mutable as:
+
+let mut naughty_number = 69; // Defaults to type i32
+naughty_number = 42;         // Now only i32 type values can be assigned to this
+---------------------------------------------------
+shadowing
+---------------------------------------------------
+let naughty_number = "Sixty Nine";
+let naughty_number = naughty_number.len() + 69; // Compliler will consider this from now on
+
+As you can see we can also change the data type when shadowing since shadowing is essentially creating
+a new variable with the variable name as naughty_number, so that we can reuse this variable name instead
+of creating another variable such as naughty_number_int.

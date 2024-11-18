@@ -1,0 +1,28 @@
+packages: cargo feature that lets you build, test and share crates
+crates: a tree of modules that produces a library or executable
+modules: control organization, scope and privacy of paths
+paths: a way of naming an item, such as struct, function or module
+
+crates are of two types:
+
+1) binary crates
+2) library crates
+
+Binary Crates: They are programs that are compiled to an executable that can be run,
+such as a command-line program or a server. Each must have a main function that defines
+what happens when the executable runs.
+
+Library Crates: They don't have a main function and don't compile to an executable. Instead,
+they define functionality intended to be shared with multiple projects. Most of the time
+the term "crate" is used for "library crate" and used interchangably with the general
+concept of a "library" in programming.
+
+The "crate root" is a source file that the Rust compiler starts from and makes up the root
+module of the crate.
+
+A package is a bundle of one or more than one crates that provides a set of functionalities.
+A package contains a Cargo.toml file that describes how to build those crates.
+
+A crate can come in one of two forms: a binary crate or a library crate. A package can
+contain as many binary crates as you like, but at most only one library crate.
+A package must contain at least one crate, whether that’s a library or binary crate.
