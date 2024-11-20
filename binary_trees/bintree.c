@@ -82,9 +82,9 @@ void postOrder(Node* parent) {
     printf("%d ", parent->data);
 }
 
-void removeNode(Node* root, int data) {
+Node* removeNode(Node* root, int data) {
     Node* current = root;
-    Node* prev = root;
+    Node* prev = NULL;
 
     while(current != NULL) {
         prev = current;
@@ -99,31 +99,40 @@ void removeNode(Node* root, int data) {
 
     if (current == NULL) {
         printf("Value: '%d' not found in BST.\n", data);
-        return;
+        return root;
     }
+
+    printf("[ DEBUG ] Node found.\n");
 
     // Node has no children
     if ((current->left == NULL) && (current->right == NULL)) {
         // Simply remove the current node from the BST
         prev->left = (prev->left->data == data) ? NULL : prev->left;
         prev->right = (prev->right->data == data) ? NULL : prev->right;
-        return;
+        return root;
     }
+
+    printf("[ DEBUG ] Past the no child condition.\n");
     
     // Node has two children
     if ((current->left) && (current->right)) {
         // ...
     } else {
+        // Node has one child
+        printf("[ DEBUG ] Inside the one child condition.\n");
         // Determine and proceed if current node is left child or right child of prev node
         Node* childOfCurr = (current->left != NULL) ? current->left : current->right;
+        printf("[ DEBUG ] Determined child node.\n");
         // Current node is left child of prev node
-        if (prev->left->data == data) {
+        if ((prev->left) && (prev->left->data == data)) {
             prev->left = childOfCurr;
         } else {
             // Current node is right child of prev node
             prev->right = childOfCurr;
         }
     }
+
+    return root;
 
 }
 
@@ -134,7 +143,7 @@ int main() {
 
     printf("Before deletion INORDER: ");
     inOrder(root);
-    removeNode(root, 10);
+    root = removeNode(root, 10);
     printf("\nAfter deletion INORDER: ");
     inOrder(root);
     printf("\n");
