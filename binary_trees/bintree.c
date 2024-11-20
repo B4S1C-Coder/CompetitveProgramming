@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 
 typedef struct Node {
     int data;
@@ -16,48 +17,127 @@ Node* init_node(int data) {
 }
 
 Node* insert(Node* parent, int data) {
-    Node* node = init_node(data);
-    Node* temp = parent;    
+    if (parent == NULL) {
+        return init_node(data);
+    }
 
-    while ((temp->left != NULL) && (temp->right != NULL)) {
-        if (temp->data == data) {
-            free(node);
-            return temp;
-        } else if (temp->data > data) {
-            if (temp->left == NULL) {
-                temp->left = node;
-                return node;
+    Node* current = parent;
+
+    while (1) {
+        if (current->data == data) {
+            return current;
+        }
+
+        if (data < current->data) {
+            // We needed to go to the left child, but since there is no left child,
+            // therefore the node should be inserted to the left of current node as
+            // node to be inserted is smaller than current node.
+            if (current->left == NULL) {
+                current->left = init_node(data);
+                return current->left;
             }
-            temp = temp->left;
-            continue;
-        } else if (temp->data < data) {
-            if (temp->right == NULL) {
-                temp->right = node;
-                return node;
+
+            current = current->left;
+        } else {
+            // We needed to go to the right child, but since there is no right child
+            // therefore the node should be inserted to the right of current node as
+            // node to be inserted is greater than current node.
+            if (current->right == NULL) {
+                current->right = init_node(data);
+                return current->right;
             }
-            temp = temp->right;
-            continue;
+            current = current->right;
+        }
+    }
+}
+
+Node* createBST(int* arr, int size) {
+    Node* root = init_node(arr[0]);
+    
+    for (int i = 1; i < size; i++) {
+        insert(root, arr[i]);
+    }
+
+    return root;
+}
+
+void preOrder(Node* parent) {
+    if (parent == NULL) { return; }
+    printf("%d ", parent->data);
+    preOrder(parent->left);
+    preOrder(parent->right);
+}
+
+void inOrder(Node* parent) {
+    if (parent == NULL) { return; }
+    inOrder(parent->left);
+    printf("%d ", parent->data);
+    inOrder(parent->right);
+}
+
+void postOrder(Node* parent) {
+    if (parent == NULL) { return; }
+    postOrder(parent->left);
+    postOrder(parent->right);
+    printf("%d ", parent->data);
+}
+
+void removeNode(Node* root, int data) {
+    Node* current = root;
+    Node* prev = root;
+
+    while(current != NULL) {
+        prev = current;
+        if (current->data == data) { break; }
+
+        if (current->data < data) {
+            current = current->right;
+        } else {
+            current = current->left;
         }
     }
 
-    if (temp->data < data) {
-        temp->right = node;
-    } else {
-        temp->left = node;
+    if (current == NULL) {
+        printf("Value: '%d' not found in BST.\n", data);
+        return;
     }
 
-    return node;
+    // Node has no children
+    if ((current->left == NULL) && (current->right == NULL)) {
+        // Simply remove the current node from the BST
+        prev->left = (prev->left->data == data) ? NULL : prev->left;
+        prev->right = (prev->right->data == data) ? NULL : prev->right;
+        return;
+    }
+    
+    // Node has two children
+    if ((current->left) && (current->right)) {
+        // ...
+    } else {
+        // Determine and proceed if current node is left child or right child of prev node
+        Node* childOfCurr = (current->left != NULL) ? current->left : current->right;
+        // Current node is left child of prev node
+        if (prev->left->data == data) {
+            prev->left = childOfCurr;
+        } else {
+            // Current node is right child of prev node
+            prev->right = childOfCurr;
+        }
+    }
+
 }
 
 int main() {
 
     int arr[9] = {8, 3, 1, 10, 6, 14, 4, 7, 13};
+    Node* root = createBST(arr, 9);
 
-    Node* root = init_node(8);
-
-    for (int i = 1; i < 10; i++) {
-        insert(root, arr[i]);
-    }
+    printf("Before deletion INORDER: ");
+    inOrder(root);
+    removeNode(root, 10);
+    printf("\nAfter deletion INORDER: ");
+    inOrder(root);
+    printf("\n");
 
     return 0;
 }
