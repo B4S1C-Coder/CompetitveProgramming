@@ -1,2 +1,2 @@
 #!/usr/bin/bash
-g++ -O3 -o $1.x -Wall $1 && $1.x
+g++ -O3 -o ./bin/$1.x -Wall $1 && ./bin/$1.x
