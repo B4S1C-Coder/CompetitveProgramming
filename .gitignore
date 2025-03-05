@@ -1,4 +1,5 @@
 bin
+.vim
 freshstart_rust/bin
 **/.git/
 **/target/
