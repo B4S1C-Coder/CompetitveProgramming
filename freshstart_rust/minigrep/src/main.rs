@@ -4,10 +4,8 @@ use std::process;
 use minigrep::Config;
 
 fn main() {
-    // Command line args, args[0] is the executable name itself
-    let args: Vec<String> = env::args().collect();
-    
-    let config = Config::build(&args).unwrap_or_else(|err| {
+    // We use the env::args() iterator directly, we give the ownership of env::args() to config
+    let config = Config::build(env::args()).unwrap_or_else(|err| {
         eprintln!("Error pasing args: {err}");
         process::exit(1);
     });
