@@ -3,3 +3,4 @@ bin
 freshstart_rust/bin
 **/.git/
 **/target/
+**/*.class
