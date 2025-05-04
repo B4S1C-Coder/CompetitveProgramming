@@ -45,25 +45,32 @@ private:
 std::pair<DynamicProgrammingTable_RowMajor, DynamicProgrammingTable_RowMajor>
 matrixChainMultiplication(const std::vector<int>& matrixOrders)
 {
-  DynamicProgrammingTable_RowMajor dpTABLE(matrixOrders.size() - 1, matrixOrders.size() - 1);
-  DynamicProgrammingTable_RowMajor aux(matrixOrders.size() - 1, matrixOrders.size() - 1);
+  int n = matrixOrders.size() - 1; // Number of matrices
+  
+  // Create tables
+  DynamicProgrammingTable_RowMajor dpTABLE(n, n);
+  DynamicProgrammingTable_RowMajor aux(n, n);
 
-  for (int i = 0; i < matrixOrders.size() - 1; i++) {
+  // Initialize the diagonal with zeros (cost of multiplying single matrix)
+  for (int i = 0; i < n; i++) {
     dpTABLE(i, i) = 0;
   }
 
-  for (int s = 1; s < matrixOrders.size() - 1; s++) {
-    for (int i = 0; i < matrixOrders.size() - s; i++) {
+  // Loop for chain length (s in algorithm)
+  for (int s = 1; s < n; s++) {
+    // For each starting position
+    for (int i = 0; i < n - s; i++) {
       int j = i + s;
-
-      // Determine C(i, j) = min{ C(i,k) + C(k+1,j) + m[i-1]*m[k]*m[j]: i<=k<j }
+      
+      // Initialize to infinity
       dpTABLE(i, j) = INT_MAX;
-
+      
+      // Try each possible split point
       for (int k = i; k < j; k++) {
-        int q = dpTABLE(i, k) + dpTABLE(k + 1, j) + (
-          matrixOrders[i]*matrixOrders[k+1]*matrixOrders[j+1]
-        );
-
+        // Calculate cost = C[i,k] + C[k+1,j] + cost of multiplying resulting matrices
+        int q = dpTABLE(i, k) + dpTABLE(k+1, j) + 
+                matrixOrders[i] * matrixOrders[k+1] * matrixOrders[j+1];
+        
         if (q < dpTABLE(i, j)) {
           dpTABLE(i, j) = q;
           aux(i, j) = k;
