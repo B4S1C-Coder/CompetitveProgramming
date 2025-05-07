@@ -49,21 +49,18 @@ void depthFirstSearch(
 int main() {
   std::vector<std::vector<int>> adjList(10); // assuming nodes are 1-indexed up to 9
 
-  adjList[1] = {2};         // 1 → 2
-  adjList[2] = {5};         // 2 → 5
-  adjList[3] = {7};         // 3 → 7
-  adjList[4] = {8};         // 4 → 8
-  adjList[5] = {};          // 5 → ∅
-  adjList[6] = {};          // 6 → ∅
-  adjList[7] = {};          // 7 → ∅
-  adjList[8] = {9};         // 8 → 9
-  adjList[9] = {};          // 9 → ∅
-
-  adjList[2].push_back(4);  // 2 → 5, 4
-  adjList[4].push_back(3);  // 4 → 8, 3
-
+  adjList[1] = {2, 4, 3};
+  adjList[2] = {5, 6};
+  adjList[3] = {7};
+  adjList[4] = {8, 9};
+  adjList[5] = {};
+  adjList[6] = {};
+  adjList[7] = {};
+  adjList[8] = {};
+  adjList[9] = {};
   
   depthFirstSearch(adjList, 1, 7);
+  std::cout << "\n";
 
   return 0;
 }
