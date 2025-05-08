@@ -42,6 +42,11 @@ void sumOfSubsets_backtracking(
 int main() {
   std::vector<int> w = {0, 5, 10, 12, 13, 15, 18};
   int m = 30;
+  
+  std::cout << "INPUT -> ";
+  printVector(w);
+
+  std::cout << "TARGET SUM = " << m << "\n";
 
   int n = w.size() - 1;
 
