@@ -35,16 +35,31 @@ std::pair<std::vector<float>, float> fractionalKnapsack(std::vector<int>& profit
   return std::make_pair(solution, cost);
 }
 
+template<typename T>
+void printVector(const std::vector<T>& _vec) {
+  for (const T& x: _vec) { std::cout << x << " "; }
+  std::cout << "\n--------------\n";
+}
+
+
 int main() {
   std::vector<int> w = {18, 15, 10};
   std::vector<int> p = {25, 24, 15};
   const int capacity = 20;
+  
+  std::cout << "Capacity = " << capacity << "\n";
+
+  std::cout << "WEIGHTS: ";
+  printVector(w);
+
+  std::cout << "PROFITS: ";
+  printVector(p);
 
   auto [sols, cost] = fractionalKnapsack(p, w, capacity);
+  
+  std::cout << "SOL    :";
+  printVector(sols);
 
-  std::cout << "COST = " << cost << "\n";
-  for (const float sol: sols) { std::cout << sol << " "; }
-  std::cout << "\n";
-
+  std::cout << "Cost = " << cost << "\n";
   return 0;
 }
