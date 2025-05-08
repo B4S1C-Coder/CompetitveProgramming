@@ -21,10 +21,22 @@ int activitySelection(const std::vector<int>& starts, const std::vector<int>& fi
   return taskCount;
 }
 
+template<typename T>
+void printVector(const std::vector<T>& _vec) {
+  for (const T& x: _vec) { std::cout << x << " "; }
+  std::cout << "\n--------------\n";
+}
+
 int main() {
   std::vector<int> st = {1, 5, 3, 4};
   std::vector<int> fn = {4, 9, 5, 6};
 
-  std::cout << activitySelection(st, fn) << "\n";
+  std::cout << "START  :\n";
+  printVector(st);
+
+  std::cout << "FINISH :\n";
+  printVector(fn);
+
+  std::cout << "Task Count that can be performed: " << activitySelection(st, fn) << "\n";
   return 0;
 }
