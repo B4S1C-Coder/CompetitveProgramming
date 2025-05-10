@@ -133,10 +133,11 @@ void solveTSP_FIFOBB(const std::vector<std::vector<int>>& graph) {
 
 int main() {
     std::vector<std::vector<int>> graph = {
-        {INF, 10, 15, 20},
-        {10, INF, 35, 25},
-        {15, 35, INF, 30},
-        {20, 25, 30, INF}
+        {INF, 20, 30, 10, 11},
+        {15, INF, 16, 4 , 2 },
+        {3 , 5 , INF, 2 , 4 },
+        {19, 6 , 18, INF, 3 },
+        {16, 4 , 7 , 16 , INF }
     };
 
     solveTSP_LCBB(graph);
